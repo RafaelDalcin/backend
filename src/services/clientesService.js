@@ -3,13 +3,30 @@ const db = require('../config/db')
 
 //Consultar cliente
 const getAllClientes = async () => {
-    let sql = 'select * from clientes';
+    let sql = `select 
+        id,
+        nome,
+        cpf,
+        telefone,
+        email,
+        rg,
+        to_char(data_nasc, 'DD/MM/YYYY') as data_nasc
+    from clientes`;
     let clientes = await db.query(sql);
     return clientes.rows;
 }
 
 const getClienteById = async (params) => {
-    let sql = `select * from clientes where id = $1`;
+    let sql = `select 
+        id,
+        nome,
+        cpf,
+        telefone,
+        email,
+        rg,
+        to_char(data_nasc, 'DD/MM/YYYY') as data_nasc
+    from clientes 
+    where id = $1;`;
     let cliente = await db.query(sql, [params.id]);
     return cliente.rows;
 }
